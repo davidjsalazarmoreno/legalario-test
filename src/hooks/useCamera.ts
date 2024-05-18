@@ -18,10 +18,11 @@ export const useCamera = () => {
       }
     }
 
-
     if (videoRef.current) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
         videoRef.current.srcObject = stream;
         setIsCameraActive(true);
       } catch (error) {

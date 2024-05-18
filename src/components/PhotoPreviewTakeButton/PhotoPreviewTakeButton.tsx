@@ -23,7 +23,7 @@ const PhotoPreviewTakeButton = ({ onPhotoCapture, onCameraStop }: Props) => {
   const handleStartCamera = () => {
     onCameraStop();
     startCamera();
-  }
+  };
 
   const handleStopCamera = () => {
     onCameraStop();

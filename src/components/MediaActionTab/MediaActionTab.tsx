@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import ImagePreview from "../ImagePreview/ImagePreview";
 import PhotoPreview from "../PhotoPreview/PhotoPreview";
 import { useCameraStore } from "../../context/camera/useCameraStore";
-import { TabsValues } from "../../types";
+import { TabsValues } from "../../constants";
 import TabPanel from "./TabPanel";
 
 export type Props = {
