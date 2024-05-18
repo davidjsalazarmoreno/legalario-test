@@ -44,7 +44,7 @@ export default function MediaActionTab({
           aria-label="full width tabs example"
         >
           <Tab label="Documento" />
-          <Tab label="Foto" />
+          <Tab label="Foto" disabled={documentUrl.length === 0} />
         </Tabs>
       </AppBar>
 
