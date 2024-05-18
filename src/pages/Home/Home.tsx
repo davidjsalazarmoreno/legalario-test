@@ -1,66 +1,40 @@
-import { useState } from "react";
-import FullWidthTabs, {
-  TabsValues,
-} from "../../components/MediaActionTab/MediaActionTab";
+import FullWidthTabs from "../../components/MediaActionTab/MediaActionTab";
 import ImagePreviewUploadButton from "../../components/ImagePreviewUploadButton/ImagePreviewUploadButton";
 import PhotoPreviewTakeButton from "../../components/PhotoPreviewTakeButton/PhotoPreviewTakeButton";
+import { useHome } from "../../hooks/useHome";
 
 const Home = () => {
-  const [previewUrl, setPreviewUrl] = useState<string>("");
-  const [photoUrl, setPhotoUrl] = useState<string>("");
-  const [tabSelected, setTabSelected] = useState<TabsValues>(
-    TabsValues.DOCUMENT
-  );
-  const isDocumentTabSelected = tabSelected === TabsValues.DOCUMENT;
-
-  const handleImageSelection = (url: string) => {
-    setPreviewUrl(url);
-  };
-
-  const handlePhotoCapture = (url: string) => {
-    setPhotoUrl(url);
-  };
-
-  const handleTabSelection = (tab: TabsValues) => {
-    console.log(tab);
-    setTabSelected(tab);
-  };
+  const {
+    previewUrl,
+    photoUrl,
+    isDocumentTabSelected,
+    handleImageSelection,
+    handlePreviewReset,
+    handlePhotoCapture,
+    handleTabSelection,
+    handleStopCamera,
+  } = useHome();
 
   return (
     <>
-      <>
-        {/* Image viewer que manejara un placeholder cuando este vacio */}
-        {/* Dos pestanias, uno que diga sube la foto y otro que diga toma la foto con tu camara */}
-        <FullWidthTabs
-          documentUrl={previewUrl}
-          photoUrl={photoUrl}
-          onTabSelection={handleTabSelection}
-          isLoading={false}
+      <FullWidthTabs
+        documentUrl={previewUrl}
+        photoUrl={photoUrl}
+        onTabSelection={handleTabSelection}
+        isLoading={false}
+      />
+
+      {isDocumentTabSelected ? (
+        <ImagePreviewUploadButton
+          onImageSelection={handleImageSelection}
+          onPreviewReset={handlePreviewReset}
         />
-
-        {isDocumentTabSelected ? (
-          <ImagePreviewUploadButton onImageSelection={handleImageSelection} />
-        ) : (
-          <PhotoPreviewTakeButton onPhotoCapture={handlePhotoCapture} />
-        )}
-
-        {/* Ruta de subida pestania 1:
-            1. El usuario sube la foto
-            2. Se valida que sea JPG o PNG
-            3. Se coloca una imagen de carga
-            4. Se simula la subida de la imagen
-            5. Se muestra la imagen subida
-        */}
-
-        {/* Ruta de subida pestania 2:
-            1. Se solicita permiso para acceder a la camara
-            2. Se toma la foto
-            3. Se muestra la imagen tomada
-            4. Se permite descartar la foto para volver al paso 2
-        */}
-
-        {/* Si tanto la camara como la foto estan tomadas se permite el avance con un boton adicional */}
-      </>
+      ) : (
+        <PhotoPreviewTakeButton
+          onPhotoCapture={handlePhotoCapture}
+          onCameraStop={handleStopCamera}
+        />
+      )}
     </>
   );
 };

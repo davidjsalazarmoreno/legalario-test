@@ -7,18 +7,15 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ImagePreview from "../ImagePreview/ImagePreview";
 import PhotoPreview from "../PhotoPreview/PhotoPreview";
-
-export enum TabsValues {
-  DOCUMENT = 0,
-  PHOTO = 1,
-}
+import { useCameraStore } from "../../context/camera/useCameraStore";
+import { TabsValues } from "../../types";
 
 export type Props = {
   documentUrl: string;
   photoUrl: string;
   onTabSelection: (tab: number) => void;
   isLoading: boolean;
-}
+};
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,11 +51,17 @@ function a11yProps(index: number) {
   };
 }
 
-export default function FullWidthTabs({ documentUrl, photoUrl, onTabSelection }: Props) {
+export default function FullWidthTabs({
+  documentUrl,
+  photoUrl,
+  onTabSelection,
+}: Props) {
+  const { stopCamera } = useCameraStore();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    stopCamera();
     setValue(newValue);
     onTabSelection(newValue);
   };
@@ -83,7 +86,7 @@ export default function FullWidthTabs({ documentUrl, photoUrl, onTabSelection }:
         <ImagePreview isLoading={false} url={documentUrl} />
       </TabPanel>
       <TabPanel value={value} index={TabsValues.PHOTO} dir={theme.direction}>
-        <PhotoPreview isLoading={false} url={photoUrl} />
+        <PhotoPreview isLoading={false} url={photoUrl} key={photoUrl} />
       </TabPanel>
     </Box>
   );

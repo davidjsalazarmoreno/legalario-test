@@ -1,9 +1,11 @@
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { useState } from "react";
 
 export type Props = {
   onImageSelection: (url: string) => void;
+  onPreviewReset: () => void;
 };
 
 const VisuallyHiddenInput = styled("input")({
@@ -19,15 +21,32 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const ImagePreviewUploadButton = ({
-  onImageSelection: handleImageSelection,
+  onImageSelection,
+  onPreviewReset,
 }: Props) => {
+  const [image, setImage] = useState<string>("");
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      handleImageSelection(url);
+      onImageSelection(url);
+      setImage(url);
     }
   };
+
+  const handlePreviewReset = () => {
+    onPreviewReset();
+    setImage("");
+  };
+
+  if (image) {
+    return (
+      <Button variant="contained" onClick={handlePreviewReset}>
+        Cambiar documento
+      </Button>
+    );
+  }
+
   return (
     <Button
       component="label"

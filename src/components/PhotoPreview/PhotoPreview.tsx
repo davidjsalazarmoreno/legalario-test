@@ -1,6 +1,8 @@
 import { ImageCard } from "../ImageCard/ImageCard";
 import { ImageLoadingState } from "../ImageLoadingState/ImageLoadingState";
 import { ImagePlaceholder } from "../ImagePlaceholder/ImagePlaceholder";
+import { useCameraStore } from "../../context/camera/useCameraStore";
+import Camera from "../Camera/Camera";
 
 export type Props = {
   isLoading: boolean;
@@ -8,10 +10,16 @@ export type Props = {
 };
 
 const PhotoPreview = ({ isLoading = false, url = "" }: Props) => {
+  const { isCameraActive } = useCameraStore();
   const isPlaceholderVisible = !isLoading && url.length === 0;
 
   if (isPlaceholderVisible) {
-    return <ImagePlaceholder variant="circular" />;
+    return (
+      <>
+        {!isCameraActive && <ImagePlaceholder variant="circular" />}
+        <Camera />
+      </>
+    );
   }
 
   if (isLoading) {
