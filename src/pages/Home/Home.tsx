@@ -1,4 +1,4 @@
-import FullWidthTabs from "../../components/MediaActionTab/MediaActionTab";
+import MediaActionTab from "../../components/MediaActionTab/MediaActionTab";
 import ImagePreviewUploadButton from "../../components/ImagePreviewUploadButton/ImagePreviewUploadButton";
 import PhotoPreviewTakeButton from "../../components/PhotoPreviewTakeButton/PhotoPreviewTakeButton";
 import { useHome } from "../../hooks/useHome";
@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <>
-      <FullWidthTabs
+      <MediaActionTab
         documentUrl={previewUrl}
         photoUrl={photoUrl}
         onTabSelection={handleTabSelection}
