@@ -2,7 +2,7 @@ import { CameraProvider } from "./context/camera/CameraContext";
 import Home from "./pages/Home/Home";
 import CssBaseline from "@mui/material/CssBaseline";
 
-function App() {
+const App = () => {
   return (
     <>
       <CssBaseline />
@@ -11,6 +11,6 @@ function App() {
       </CameraProvider>
     </>
   );
-}
+};
 
 export default App;

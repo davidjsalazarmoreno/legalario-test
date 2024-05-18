@@ -2,10 +2,11 @@ import MediaActionTab from "../../components/MediaActionTab/MediaActionTab";
 import ImagePreviewUploadButton from "../../components/ImagePreviewUploadButton/ImagePreviewUploadButton";
 import PhotoPreviewTakeButton from "../../components/PhotoPreviewTakeButton/PhotoPreviewTakeButton";
 import { useHome } from "../../hooks/useHome";
+import { Box } from "@mui/material";
 
 const Home = () => {
   const {
-    previewUrl,
+    documentUrl,
     photoUrl,
     isDocumentTabSelected,
     handleImageSelection,
@@ -16,9 +17,15 @@ const Home = () => {
   } = useHome();
 
   return (
-    <>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+      width="100vw"
+    >
       <MediaActionTab
-        documentUrl={previewUrl}
+        documentUrl={documentUrl}
         photoUrl={photoUrl}
         onTabSelection={handleTabSelection}
         isLoading={false}
@@ -26,6 +33,7 @@ const Home = () => {
 
       {isDocumentTabSelected ? (
         <ImagePreviewUploadButton
+          documentUrl={documentUrl}
           onImageSelection={handleImageSelection}
           onPreviewReset={handlePreviewReset}
         />
@@ -35,7 +43,7 @@ const Home = () => {
           onCameraStop={handleStopCamera}
         />
       )}
-    </>
+    </Box>
   );
 };
 

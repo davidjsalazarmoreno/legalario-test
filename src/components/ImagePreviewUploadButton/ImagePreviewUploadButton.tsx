@@ -4,6 +4,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
 
 export type Props = {
+  documentUrl: string;
   onImageSelection: (url: string) => void;
   onPreviewReset: () => void;
 };
@@ -21,28 +22,26 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 const ImagePreviewUploadButton = ({
+  documentUrl,
   onImageSelection,
   onPreviewReset,
 }: Props) => {
-  const [image, setImage] = useState<string>("");
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
       onImageSelection(url);
-      setImage(url);
     }
   };
 
   const handlePreviewReset = () => {
     onPreviewReset();
-    setImage("");
   };
 
-  if (image) {
+  if (documentUrl.length > 0) {
     return (
       <Button variant="contained" onClick={handlePreviewReset}>
-        Cambiar documento
+        Quitar documento
       </Button>
     );
   }

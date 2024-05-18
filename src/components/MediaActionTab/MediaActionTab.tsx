@@ -33,7 +33,7 @@ export default function MediaActionTab({
   };
 
   return (
-    <Box sx={{ bgcolor: "background.paper", width: "100%" }}>
+    <>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -54,6 +54,6 @@ export default function MediaActionTab({
       <TabPanel value={value} index={TabsValues.PHOTO}>
         <PhotoPreview isLoading={false} url={photoUrl} key={photoUrl} />
       </TabPanel>
-    </Box>
+    </>
   );
 }

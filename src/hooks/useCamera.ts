@@ -18,12 +18,16 @@ export const useCamera = () => {
       }
     }
 
-    setIsCameraActive(true);
+
     if (videoRef.current) {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef.current.srcObject = stream;
-      console.log("Starting camera")
-      console.log(videoRef)
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        videoRef.current.srcObject = stream;
+        setIsCameraActive(true);
+      } catch (error) {
+        alert("Error iniciando la camara");
+        setIsCameraActive(false);
+      }
     }
   };
 
@@ -48,7 +52,7 @@ export const useCamera = () => {
         canvas.height = canvasHeight;
         const context = canvas.getContext("2d");
         context?.drawImage(videoRef.current, 0, 0, canvasWidth, canvasHeight);
-        resolve(canvas.toDataURL("image/png"));
+        resolve(canvas.toDataURL("image/jpg", 1.0));
         stopCamera();
       }
       reject({ message: "No video ref" });

@@ -2,18 +2,18 @@ import { useState } from 'react';
 import { TabsValues } from '../types';
 
 export const useHome = () => {
-  const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [documentUrl, setDocumentUrl] = useState<string>("");
   const [photoUrl, setPhotoUrl] = useState<string>("");
   const [tabSelected, setTabSelected] = useState<TabsValues>(TabsValues.DOCUMENT);
 
   const isDocumentTabSelected = tabSelected === TabsValues.DOCUMENT;
 
   const handleImageSelection = (url: string) => {
-    setPreviewUrl(url);
+    setDocumentUrl(url);
   }
 
   const handlePreviewReset = () => {
-    setPreviewUrl("");
+    setDocumentUrl("");
   }
 
   const handlePhotoCapture = (url: string) => {
@@ -29,7 +29,7 @@ export const useHome = () => {
   }
 
   return {
-    previewUrl,
+    documentUrl,
     photoUrl,
     tabSelected,
     isDocumentTabSelected,
