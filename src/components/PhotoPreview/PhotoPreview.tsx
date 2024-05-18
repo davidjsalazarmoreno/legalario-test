@@ -2,7 +2,6 @@ import { ImageCard } from "../ImageCard/ImageCard";
 import { ImageLoadingState } from "../ImageLoadingState/ImageLoadingState";
 import { ImagePlaceholder } from "../ImagePlaceholder/ImagePlaceholder";
 
-
 export type Props = {
   isLoading: boolean;
   url: string;
@@ -19,7 +18,7 @@ const PhotoPreview = ({ isLoading = false, url = "" }: Props) => {
     return <ImageLoadingState variant="circular" />;
   }
 
-  return <ImageCard variant="circular" image={url} title="Image" />;
+  return <ImageCard variant="circular" image={url} title="Foto" />;
 };
 
 export default PhotoPreview;

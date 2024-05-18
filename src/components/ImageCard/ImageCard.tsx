@@ -16,6 +16,7 @@ export const ImageCard = ({ image, title, variant = "rectangular" }: Props) => {
         justifyContent: "center",
         overflow: "hidden",
         borderRadius: "50%",
+        objectFit: "cover",
       }
     : {};
   return (
@@ -24,7 +25,7 @@ export const ImageCard = ({ image, title, variant = "rectangular" }: Props) => {
         component="img"
         image={image}
         alt={title}
-        sx={{ height: 300, width: 300 }}
+        sx={{ height: "300px", width: "300px" }}
       />
     </Card>
   );

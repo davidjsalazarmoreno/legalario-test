@@ -1,24 +1,48 @@
-import { useState } from 'react'
-import FullWidthTabs from '../../components/MediaActionTab/MediaActionTab'
-import ImagePreviewUploadButton from '../../components/ImagePreviewUploadButton/ImagePreviewUploadButton'
+import { useState } from "react";
+import FullWidthTabs, {
+  TabsValues,
+} from "../../components/MediaActionTab/MediaActionTab";
+import ImagePreviewUploadButton from "../../components/ImagePreviewUploadButton/ImagePreviewUploadButton";
+import PhotoPreviewTakeButton from "../../components/PhotoPreviewTakeButton/PhotoPreviewTakeButton";
 
 const Home = () => {
   const [previewUrl, setPreviewUrl] = useState<string>("");
+  const [photoUrl, setPhotoUrl] = useState<string>("");
+  const [tabSelected, setTabSelected] = useState<TabsValues>(
+    TabsValues.DOCUMENT
+  );
+  const isDocumentTabSelected = tabSelected === TabsValues.DOCUMENT;
 
   const handleImageSelection = (url: string) => {
     setPreviewUrl(url);
-  }
+  };
+
+  const handlePhotoCapture = (url: string) => {
+    setPhotoUrl(url);
+  };
+
+  const handleTabSelection = (tab: TabsValues) => {
+    console.log(tab);
+    setTabSelected(tab);
+  };
 
   return (
     <>
       <>
         {/* Image viewer que manejara un placeholder cuando este vacio */}
         {/* Dos pestanias, uno que diga sube la foto y otro que diga toma la foto con tu camara */}
-        <FullWidthTabs documentUrl={previewUrl} />
+        <FullWidthTabs
+          documentUrl={previewUrl}
+          photoUrl={photoUrl}
+          onTabSelection={handleTabSelection}
+          isLoading={false}
+        />
 
-        <ImagePreviewUploadButton handleImageSelection={handleImageSelection} />
-
-
+        {isDocumentTabSelected ? (
+          <ImagePreviewUploadButton onImageSelection={handleImageSelection} />
+        ) : (
+          <PhotoPreviewTakeButton onPhotoCapture={handlePhotoCapture} />
+        )}
 
         {/* Ruta de subida pestania 1:
             1. El usuario sube la foto
@@ -38,7 +62,7 @@ const Home = () => {
         {/* Si tanto la camara como la foto estan tomadas se permite el avance con un boton adicional */}
       </>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

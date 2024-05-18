@@ -8,6 +8,18 @@ import Box from "@mui/material/Box";
 import ImagePreview from "../ImagePreview/ImagePreview";
 import PhotoPreview from "../PhotoPreview/PhotoPreview";
 
+export enum TabsValues {
+  DOCUMENT = 0,
+  PHOTO = 1,
+}
+
+export type Props = {
+  documentUrl: string;
+  photoUrl: string;
+  onTabSelection: (tab: number) => void;
+  isLoading: boolean;
+}
+
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
@@ -42,12 +54,13 @@ function a11yProps(index: number) {
   };
 }
 
-export default function FullWidthTabs({ documentUrl }: { documentUrl: string }) {
+export default function FullWidthTabs({ documentUrl, photoUrl, onTabSelection }: Props) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    onTabSelection(newValue);
   };
 
   return (
@@ -66,11 +79,11 @@ export default function FullWidthTabs({ documentUrl }: { documentUrl: string }) 
         </Tabs>
       </AppBar>
 
-      <TabPanel value={value} index={0} dir={theme.direction}>
+      <TabPanel value={value} index={TabsValues.DOCUMENT} dir={theme.direction}>
         <ImagePreview isLoading={false} url={documentUrl} />
       </TabPanel>
-      <TabPanel value={value} index={1} dir={theme.direction}>
-        <PhotoPreview isLoading={false} url="" />
+      <TabPanel value={value} index={TabsValues.PHOTO} dir={theme.direction}>
+        <PhotoPreview isLoading={false} url={photoUrl} />
       </TabPanel>
     </Box>
   );

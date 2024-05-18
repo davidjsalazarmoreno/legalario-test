@@ -18,7 +18,7 @@ const ImagePreview = ({ isLoading = false, url = "" }: Props) => {
     return <ImageLoadingState />;
   }
 
-  return <ImageCard image={url} title="Image" />;
+  return <ImageCard image={url} title="Documento" />;
 };
 
 export default ImagePreview;
