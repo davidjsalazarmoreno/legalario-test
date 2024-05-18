@@ -1,19 +1,24 @@
 import { useState } from 'react'
-import ImagePreview from '../../components/ImagePreview/ImagePreview'
-import PhotoPreview from '../../components/PhotoPreview/PhotoPreview'
+import FullWidthTabs from '../../components/MediaActionTab/MediaActionTab'
+import ImagePreviewUploadButton from '../../components/ImagePreviewUploadButton/ImagePreviewUploadButton'
 
 const Home = () => {
-  const [count, setCount] = useState(0)
-  // https://placehold.co/600x400
+  const [previewUrl, setPreviewUrl] = useState<string>("");
+
+  const handleImageSelection = (url: string) => {
+    setPreviewUrl(url);
+  }
+
   return (
     <>
       <>
-        <ImagePreview isLoading={false} url="" />
-        <PhotoPreview isLoading={false} url="" />
         {/* Image viewer que manejara un placeholder cuando este vacio */}
-
-
         {/* Dos pestanias, uno que diga sube la foto y otro que diga toma la foto con tu camara */}
+        <FullWidthTabs documentUrl={previewUrl} />
+
+        <ImagePreviewUploadButton handleImageSelection={handleImageSelection} />
+
+
 
         {/* Ruta de subida pestania 1:
             1. El usuario sube la foto
